@@ -1,1 +1,424 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia Digital | Biblioteca de Libros Actualizados</title>
+    <!-- Íconos Material Symbols y Font Awesome -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,500,0,0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        :root {
+            --color-filosofia: #0056b3;
+            --color-historia: #c82333;
+            --color-ciencias: #20c997;
+            --color-literatura: #e67e22;
+            --color-arte: #866ec7;
+            --color-tecnologia: #28a745;
+            --color-whatsapp: #25D366;
+            --color-instagram: #E4405F;
+            --color-facebook: #1877F2;
+            --color-tiktok: #000000;
+            --color-trabajo: #800080;
+            --color-acento: #004085;
+            --radio: 10px;
+            --espaciado: 15px;
+            --sombra: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        body {
+            background-image: url('fondo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: calc(var(--espaciado) * 2);
+            min-height: 100vh;
+        }
+
+        .contenedor-principal {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: calc(var(--espaciado) * 1.5);
+        }
+
+        .titulo-principal {
+            font-size: 2.5rem;
+            color: #ffffff;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.8);
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            border-bottom: 3px solid rgba(255,255,255,0.8);
+            padding-bottom: var(--espaciado);
+            margin-bottom: var(--espaciado);
+        }
+
+        .seccion-info {
+            background-color: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            padding: calc(var(--espaciado) * 1.5);
+            border-radius: var(--radio);
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+        }
+
+        .subtitulo-descripcion {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: calc(var(--espaciado) / 2);
+            color: #f8f9fa;
+        }
+
+        .texto-descripcion {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: calc(var(--espaciado) * 1.2);
+        }
+
+        .titulo-redes {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: calc(var(--espaciado) / 1.5);
+            color: #f8f9fa;
+        }
+        /* Contenedor redes sociales - Botones achicados */
+        .contenedor-redes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: calc(var(--espaciado) / 1.5);
+            width: 100%;
+            max-width: 550px;
+        }
+
+        .btn-red {
+            padding: calc(var(--espaciado) / 1.8);
+            border-radius: var(--radio);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: var(--sombra);
+            transition: all 0.3s ease;
+        }
+
+        .btn-red:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .whatsapp { background-color: var(--color-whatsapp); }
+        .instagram { background-color: var(--color-instagram); }
+        .facebook { background-color: var(--color-facebook); }
+        .tiktok { background-color: var(--color-tiktok); }
+        .trabajo { background-color: var(--color-trabajo); }
+
+        .icono-red {
+            font-size: 1.1rem;
+        }
+
+        .btn-sesion {
+            width: 100%;
+            max-width: 500px;
+            padding: calc(var(--espaciado) / 1.1);
+            background-color: rgba(0, 64, 133, 0.9);
+            color: white;
+            border: none;
+            border-radius: var(--radio);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: var(--sombra);
+            transition: all 0.3s ease;
+            margin: 0 0 calc(var(--espaciado) * 1.5) 0;
+        }
+
+        .btn-sesion:hover {
+            background-color: var(--color-acento);
+            transform: translateY(-2px);
+        }
+
+        .contenedor-botones {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--espaciado);
+            margin-bottom: calc(var(--espaciado) * 2);
+        }
+
+        .btn-carpeta {
+            height: 90px;
+            border: none;
+            border-radius: var(--radio);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: var(--espaciado);
+            box-shadow: var(--sombra);
+            transition: all 0.3s ease;
+            opacity: 0.95;
+            text-decoration: none;
+        }
+
+        .btn-carpeta:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .filosofia { background-color: var(--color-filosofia); }
+        .historia { background-color: var(--color-historia); }
+        .ciencias { background-color: var(--color-ciencias); }
+        .literatura { background-color: var(--color-literatura); }
+        .arte { background-color: var(--color-arte); }
+        .tecnologia { background-color: var(--color-tecnologia); }
+
+        .icono-carpeta {
+            font-family: 'Material Symbols Outlined';
+            font-size: 1.6rem;
+        }
+
+        .contenedor-pdfs {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radio);
+            padding: calc(var(--espaciado) * 1.5);
+            display: none;
+            box-shadow: var(--sombra);
+        }
+
+        .titulo-pdfs {
+            font-size: 1.4rem;
+            color: var(--color-acento);
+            margin-bottom: calc(var(--espaciado) * 1.2);
+            padding-bottom: calc(var(--espaciado) / 2);
+            border-bottom: 2px solid var(--color-acento);
+            font-weight: 600;
+        }
+
+        .lista-pdfs {
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--espaciado) / 1.2);
+        }
+
+        .elemento-pdf {
+            background-color: #f1f3f5;
+            border-radius: var(--radio);
+            padding: calc(var(--espaciado) / 1.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--sombra);
+        }
+
+        .nombre-pdf {
+            font-size: 0.9rem;
+            color: #212529;
+            font-weight: 500;
+        }
+
+        .btn-abrir {
+            padding: calc(var(--espaciado) / 1.5) calc(var(--espaciado) * 1.2);
+            background-color: var(--color-acento);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: calc(var(--radio) / 2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-abrir:hover {
+            background-color: #003060;
+        }
+
+        .estado {
+            text-align: center;
+            padding: calc(var(--espaciado) * 3);
+            color: #495057;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: var(--espaciado);
+            }
+            .titulo-principal {
+                font-size: 2rem;
+            }
+            .contenedor-botones {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .elemento-pdf {
+                flex-direction: column;
+                gap: calc(var(--espaciado) / 1.2);
+                text-align: center;
+            }
+            .contenedor-redes {
+                grid-template-columns: repeat(2, 1fr);
+                gap: calc(var(--espaciado) / 2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor-principal">
+        <h1 class="titulo-principal">ACADEMIA DIGITAL DE LIBROS</h1>
+
+        <div class="seccion-info">
+            <h2 class="subtitulo-descripcion">Acceso Exclusivo y Permanente de por vida.</h2>
+            <p class="texto-descripcion">
+                Obtén desbloqueo de por vida a nuestra biblioteca digital, con actualizaciones constantes de títulos en diversas áreas del conocimiento. Nuestra colección se expande mensualmente para brindarte siempre material relevante y de calidad.
+                <br><h2>+ 150.000 libros </h2><br>
+            </p>
+
+            <h3 class="titulo-redes">Contáctanos en Nuestras Redes</h3>
+            <div class="contenedor-redes">
+                <a href="https://wa.me/5491122902239" class="btn-red whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp icono-red"></i>
+                    WhatsApp
+                </a>
+                <a href="https://instagram.com/tuusuario_academia" class="btn-red instagram" target="_blank">
+                    <i class="fab fa-instagram icono-red"></i>
+                    Instagram
+                </a>
+                <a href="https://facebook.com/tupagina_academia" class="btn-red facebook" target="_blank">
+                    <i class="fab fa-facebook-f icono-red"></i>
+                    Facebook
+                </a>
+                <a href="https://vm.tiktok.com/ZS9RVF5TST6M6-iF3yb/" class="btn-red tiktok" target="_blank">
+                    <i class="fab fa-tiktok icono-red"></i>
+                    TikTok
+                </a>
+                <a href="https://tu-enlace-de-trabajo.com" class="btn-red trabajo" target="_blank">
+                    <i class="fas fa-briefcase icono-red"></i>
+                    Trabaja con Nosotros
+                </a>
+            </div>
+        </div>
+
+        <a href="https://accounts.google.com/ServiceLogin?service=wise&passive=true&continue=https://drive.google.com/" class="btn-sesion" target="_blank">
+            INICIAR SESIÓN PARA ACCEDER A LA BIBLIOTECA
+        </a>
+
+        <div class="contenedor-botones">
+            <a href="https://drive.google.com/drive/folders/120Fhk8EhI9oUUcoZiOjXR4iLN2tmKwHK" class="btn-carpeta filosofia" target="_blank">
+                <span class="material-symbols-outlined icono-carpeta">menu_book</span>
+                Filosofía
+            </a>
+            <a href="https://drive.google.com/drive/folders/1KChLxlLLqMEFxQ6ASK3t3RORe45p12mJ" class="btn-carpeta historia" target="_blank">
+                <span class="material-symbols-outlined icono-carpeta">history_edu</span>
+                Historia
+            </a>
+            <a href="https://drive.google.com/drive/folders/1Yn89vyhUYnPwphLVGpf1TymFVZ0s8GLN" class="btn-carpeta ciencias" target="_blank">
+                <span class="material-symbols-outlined icono-carpeta">science</span>
+                Ciencias
+            </a>
+            <a href="https://drive.google.com/drive/folders/1ym39m7ljdTl0hC4ZpWFvFRrRJ7m9gNvC" class="btn-carpeta literatura" target="_blank">
+                <span class="material-symbols-outlined icono-carpeta">library_books</span>
+                Literatura
+            </a>
+            <a href="https://drive.google.com/drive/folders/1PBJoNoMs6LFnIy3BzCHKW7ZPp0KpLH2U" class="btn-carpeta arte" target="_blank">
+                <span class="material-symbols-outlined icono-carpeta">palette</span>
+                Arte
+            </a>
+            <a href="https://drive.google.com/drive/folders/1aLc5gwah6C9wS_TBVa2zcPGgztZz7tYD" class="btn-carpeta tecnologia" target="_blank">
+                <span class="material-symbols-outlined icono-carpeta">computer</span>
+                Tecnología
+            </a>
+        </div>
+
+        <div class="contenedor-pdfs" id="contenedor-pdfs"></div>
+
+    <script>
+        // Configuración directa de enlaces
+        const CONFIG_COLECCIONES = {
+            filosofia: {
+                nombre: "Filosofía",
+                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_FILOSOFIA",
+                archivos: [
+                    { nombre: "Introducción a la Filosofía Contemporánea", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_FILOSOFIA_1/view" },
+                    { nombre: "Ética y Moral en la Sociedad Moderna", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_FILOSOFIA_2/view" },
+                    { nombre: "Historia de las Escuelas Filosóficas", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_FILOSOFIA_3/view" }
+                ]
+            },
+            historia: {
+                nombre: "Historia",
+                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_HISTORIA",
+                archivos: [
+                    { nombre: "Historia Universal Contemporánea", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_HISTORIA_1/view" },
+                    { nombre: "Orígenes de la Civilización Occidental", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_HISTORIA_2/view" },
+                    { nombre: "Historia de América Latina", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_HISTORIA_3/view" }
+                ]
+            },
+            ciencias: {
+                nombre: "Ciencias",
+                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_CIENCIAS",
+                archivos: [
+                    { nombre: "Física Cuántica para Principiantes", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_CIENCIAS_1/view" },
+                    { nombre: "Biología Molecular y Genética", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_CIENCIAS_2/view" },
+                    { nombre: "Química Orgánica Básica", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_CIENCIAS_3/view" }
+                ]
+            },
+            literatura: {
+                nombre: "Literatura",
+                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_LITERATURA",
+                archivos: [
+                    { nombre: "Antología de Poesía Hispanoamericana", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_LITERATURA_1/view" },
+                    { nombre: "Novelas Clásicas de la Literatura Mundial", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_LITERATURA_2/view" },
+                    { nombre: "Teoría y Crítica Literaria", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_LITERATURA_3/view" }
+                ]
+            },
+            arte: {
+                nombre: "Arte",
+                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_ARTE",
+                archivos: [
+                    { nombre: "Historia del Arte Universal", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_ARTE_1/view" },
+                    { nombre: "Pintura Contemporánea", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_ARTE_2/view" },
+                    { nombre: "Arquitectura y Diseño", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_ARTE_3/view" }
+                ]
+            },
+            tecnologia: {
+                nombre: "Tecnología",
+                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_TECNOLOGIA",
+                archivos: [
+                    { nombre: "Programación en Python para Principiantes", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_TECNOLOGIA_1/view" },
+                    { nombre: "Inteligencia Artificial Aplicada", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_TECNOLOGIA_2/view" },
+                    { nombre: "Seguridad Informática Básica", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_TECNOLOGIA_3/view" }
+                ]
+            }
+        };
+
+        // Función para mostrar la colección seleccionada o abrir enlace directo
+        function mostrarOCerrarCarpeta(tema) {
+            const coleccion = CONFIG_COLECCIONES[tema];
+            window.open(coleccion.enlaceCarpeta, "_blank");
+        }
+    </script>
+    </div>
+</body>
+</html>
