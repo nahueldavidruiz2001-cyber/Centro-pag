@@ -1,424 +1,540 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academia Digital | Biblioteca de Libros Actualizados</title>
-    <!-- Íconos Material Symbols y Font Awesome -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Academia Digital | Biblioteca de Libros</title>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,500,0,0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
+        :root {
+            --radio: 14px;
+            --neon-intensity: 1;
+            --neon-primary: #C026D3;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Roboto', sans-serif;
-        }
-
-        :root {
-            --color-filosofia: #0056b3;
-            --color-historia: #c82333;
-            --color-ciencias: #20c997;
-            --color-literatura: #e67e22;
-            --color-arte: #866ec7;
-            --color-tecnologia: #28a745;
-            --color-whatsapp: #25D366;
-            --color-instagram: #E4405F;
-            --color-facebook: #1877F2;
-            --color-tiktok: #000000;
-            --color-trabajo: #800080;
-            --color-acento: #004085;
-            --radio: 10px;
-            --espaciado: 15px;
-            --sombra: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            background-image: url('fondo.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            padding: calc(var(--espaciado) * 2);
+            background: url('fondo.jpg') center/cover fixed;
             min-height: 100vh;
+            padding: 16px;
+            color: white;
+            transition: background 0.4s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .contenedor-principal {
-            width: 100%;
-            max-width: 700px;
+        /* ==================== 13 MODOS NEON ==================== */
+        .modo-neon-purple   { background: linear-gradient(rgba(40,0,80,0.95), rgba(10,0,30,0.98)), url('fondo.jpg') center/cover fixed; }
+        .modo-neon-cyber    { background: linear-gradient(rgba(0,20,60,0.95), rgba(0,10,40,0.98)), url('fondo.jpg') center/cover fixed; }
+        .modo-neon-rainbow  { background: linear-gradient(135deg, #0a0020, #1a0033), url('fondo.jpg') center/cover fixed; }
+        .modo-neon-green    { background: linear-gradient(rgba(0,40,20,0.95), rgba(0,20,10,0.98)), url('fondo.jpg') center/cover fixed; }
+        .modo-neon-pink     { background: linear-gradient(rgba(60,0,40,0.95), rgba(30,0,20,0.98)), url('fondo.jpg') center/cover fixed; }
+        .modo-neon-orange   { background: linear-gradient(rgba(60,30,0,0.95), rgba(40,15,0,0.98)), url('fondo.jpg') center/cover fixed; }
+        .modo-neon-red      { background: linear-gradient(rgba(60,0,0,0.95), rgba(30,0,0,0.98)), url('fondo.jpg') center/cover fixed; }
+        .modo-neon-gold     { background: linear-gradient(rgba(60,50,0,0.95), rgba(40,30,0,0.98)), url('fondo.jpg') center/cover fixed; }
+        .modo-neon-violet   { background: linear-gradient(rgba(50,0,90,0.95), rgba(15,0,40,0.98)), url('fondo.jpg') center/cover fixed; }
+        .modo-neon-cyan     { background: linear-gradient(rgba(0,40,50,0.95), rgba(0,15,30,0.98)), url('fondo.jpg') center/cover fixed; }
+        .modo-neon-magenta  { background: linear-gradient(rgba(70,0,40,0.95), rgba(35,0,25,0.98)), url('fondo.jpg') center/cover fixed; }
+        .modo-neon-electric { background: linear-gradient(rgba(0,30,70,0.95), rgba(0,10,40,0.98)), url('fondo.jpg') center/cover fixed; }
+        
+        /* MODO RGB - Fondo negro + arcoíris en BORDES (solo bordes) */
+        .modo-neon-rgb {
+            background: #000000 !important;
+        }
+        .modo-neon-rgb .info,
+        .modo-neon-rgb .btn-carpeta {
+            animation: rgb-border 2.8s linear infinite;
+        }
+        @keyframes rgb-border {
+            0%   { border-color: #ff00ff; box-shadow: 0 0 25px #ff00ff; }
+            14%  { border-color: #00ffff; box-shadow: 0 0 25px #00ffff; }
+            28%  { border-color: #39ff14; box-shadow: 0 0 25px #39ff14; }
+            42%  { border-color: #ffff00; box-shadow: 0 0 25px #ffff00; }
+            57%  { border-color: #ff8000; box-shadow: 0 0 25px #ff8000; }
+            71%  { border-color: #ff0080; box-shadow: 0 0 25px #ff0080; }
+            85%  { border-color: #00ff80; box-shadow: 0 0 25px #00ff80; }
+            100% { border-color: #ff00ff; box-shadow: 0 0 25px #ff00ff; }
+        }
+
+        /* ==================== NEON EN TODOS LOS TEXTOS (CORREGIDO) ==================== */
+        body.neon-fonts-on h1,
+        body.neon-fonts-on h2,
+        body.neon-fonts-on h3,
+        body.neon-fonts-on p,
+        body.neon-fonts-on .btn-carpeta,
+        body.neon-fonts-on .btn-red,
+        body.neon-fonts-on .btn-sesion,
+        body.neon-fonts-on span {
+            color: #fff !important;
+            text-shadow: 
+                0 0 8px #fff,
+                0 0 18px var(--neon-primary),
+                0 0 28px var(--neon-primary) !important;
+            transition: text-shadow 0.3s ease;
+        }
+
+        /* RGB + Neon en letras = arcoíris SOLO en textos (categorías, descripción, título, etc.) */
+        .modo-neon-rgb.neon-fonts-on h1,
+        .modo-neon-rgb.neon-fonts-on h2,
+        .modo-neon-rgb.neon-fonts-on h3,
+        .modo-neon-rgb.neon-fonts-on p,
+        .modo-neon-rgb.neon-fonts-on .btn-carpeta,
+        .modo-neon-rgb.neon-fonts-on .btn-red,
+        .modo-neon-rgb.neon-fonts-on .btn-sesion,
+        .modo-neon-rgb.neon-fonts-on span {
+            color: #fff !important;
+            animation: rgb-text 2.8s linear infinite;
+        }
+
+        @keyframes rgb-text {
+            0%   { text-shadow: 0 0 8px #fff, 0 0 18px #ff00ff, 0 0 28px #ff00ff; }
+            14%  { text-shadow: 0 0 8px #fff, 0 0 18px #00ffff, 0 0 28px #00ffff; }
+            28%  { text-shadow: 0 0 8px #fff, 0 0 18px #39ff14, 0 0 28px #39ff14; }
+            42%  { text-shadow: 0 0 8px #fff, 0 0 18px #ffff00, 0 0 28px #ffff00; }
+            57%  { text-shadow: 0 0 8px #fff, 0 0 18px #ff8000, 0 0 28px #ff8000; }
+            71%  { text-shadow: 0 0 8px #fff, 0 0 18px #ff0080, 0 0 28px #ff0080; }
+            85%  { text-shadow: 0 0 8px #fff, 0 0 18px #00ff80, 0 0 28px #00ff80; }
+            100% { text-shadow: 0 0 8px #fff, 0 0 18px #ff00ff, 0 0 28px #ff00ff; }
+        }
+
+        .contenedor {
+            max-width: 720px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: calc(var(--espaciado) * 1.5);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
 
-        .titulo-principal {
-            font-size: 2.5rem;
-            color: #ffffff;
-            text-shadow: 0 3px 6px rgba(0,0,0,0.8);
+        h1 {
             text-align: center;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            border-bottom: 3px solid rgba(255,255,255,0.8);
-            padding-bottom: var(--espaciado);
-            margin-bottom: var(--espaciado);
+            font-size: 2.6rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            padding-bottom: 18px;
+            text-transform: uppercase;
+            color: #fff;
         }
 
-        .seccion-info {
-            background-color: rgba(255,255,255,0.1);
-            backdrop-filter: blur(5px);
-            padding: calc(var(--espaciado) * 1.5);
+        .info {
+            background: rgba(255,255,255,0.10);
+            backdrop-filter: blur(12px);
+            padding: 28px;
             border-radius: var(--radio);
-            color: #ffffff;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+            text-align: center;
+            border: 3px solid var(--neon-primary);
+            box-shadow: 0 0 28px var(--neon-primary);
         }
 
-        .subtitulo-descripcion {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: calc(var(--espaciado) / 2);
-            color: #f8f9fa;
-        }
-
-        .texto-descripcion {
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: calc(var(--espaciado) * 1.2);
-        }
-
-        .titulo-redes {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: calc(var(--espaciado) / 1.5);
-            color: #f8f9fa;
-        }
-        /* Contenedor redes sociales - Botones achicados */
-        .contenedor-redes {
+        .redes {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: calc(var(--espaciado) / 1.5);
-            width: 100%;
-            max-width: 550px;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 14px;
+            margin-top: 24px;
         }
 
         .btn-red {
-            padding: calc(var(--espaciado) / 1.8);
+            padding: 16px 12px;
             border-radius: var(--radio);
             color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.96rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 3px;
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 600;
-            box-shadow: var(--sombra);
-            transition: all 0.3s ease;
+            gap: 8px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
         }
 
-        .btn-red:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        .btn-red:active { transform: scale(0.95); }
+
+        .btn-temas {
+            background: linear-gradient(90deg, #C026D3, #9F1A9E) !important;
+            box-shadow: 0 0 25px #C026D3;
         }
 
-        .whatsapp { background-color: var(--color-whatsapp); }
-        .instagram { background-color: var(--color-instagram); }
-        .facebook { background-color: var(--color-facebook); }
-        .tiktok { background-color: var(--color-tiktok); }
-        .trabajo { background-color: var(--color-trabajo); }
-
-        .icono-red {
-            font-size: 1.1rem;
-        }
+        .whatsapp { background: #25D366; }
+        .instagram { background: #E4405F; }
+        .facebook { background: #1877F2; }
+        .tiktok { background: #000; }
+        .trabajo { background: #800080; }
 
         .btn-sesion {
+            display: block;
             width: 100%;
-            max-width: 500px;
-            padding: calc(var(--espaciado) / 1.1);
-            background-color: rgba(0, 64, 133, 0.9);
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(90deg, #004088, #0066cc);
             color: white;
-            border: none;
-            border-radius: var(--radio);
-            font-size: 1.1rem;
-            font-weight: 600;
             text-align: center;
-            text-decoration: none;
-            box-shadow: var(--sombra);
-            transition: all 0.3s ease;
-            margin: 0 0 calc(var(--espaciado) * 1.5) 0;
+            font-size: 1.25rem;
+            font-weight: 800;
+            border-radius: var(--radio);
+            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.4);
         }
 
-        .btn-sesion:hover {
-            background-color: var(--color-acento);
-            transform: translateY(-2px);
-        }
+        .btn-sesion:active { transform: scale(0.97); }
 
-        .contenedor-botones {
-            width: 100%;
+        /* CATEGORÍAS: 3 en línea recta hacia la izquierda */
+        .categorias {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--espaciado);
-            margin-bottom: calc(var(--espaciado) * 2);
+            gap: 16px;
         }
 
         .btn-carpeta {
-            height: 90px;
-            border: none;
+            height: 110px;
             border-radius: var(--radio);
             color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.05rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            padding: var(--espaciado);
-            box-shadow: var(--sombra);
-            transition: all 0.3s ease;
-            opacity: 0.95;
+            gap: 10px;
             text-decoration: none;
+            border: 3px solid var(--neon-primary);
+            box-shadow: 0 0 22px var(--neon-primary);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
-        .btn-carpeta:hover {
-            opacity: 1;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .btn-carpeta:active { transform: scale(0.95); }
+
+        .animations-on .btn-carpeta {
+            animation: neon-pulse 1.8s infinite alternate ease-in-out;
         }
 
-        .filosofia { background-color: var(--color-filosofia); }
-        .historia { background-color: var(--color-historia); }
-        .ciencias { background-color: var(--color-ciencias); }
-        .literatura { background-color: var(--color-literatura); }
-        .arte { background-color: var(--color-arte); }
-        .tecnologia { background-color: var(--color-tecnologia); }
-
-        .icono-carpeta {
-            font-family: 'Material Symbols Outlined';
-            font-size: 1.6rem;
+        @keyframes neon-pulse {
+            from { box-shadow: 0 0 15px var(--neon-primary); }
+            to   { box-shadow: 0 0 38px var(--neon-primary), 0 0 60px var(--neon-primary); }
         }
 
-        .contenedor-pdfs {
+        .icono { font-size: 2.3rem; filter: drop-shadow(0 0 8px currentColor); }
+
+        /* ==================== PANEL DE TEMAS MEJORADO Y PROFESIONAL ==================== */
+        .config-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: var(--radio);
-            padding: calc(var(--espaciado) * 1.5);
-            display: none;
-            box-shadow: var(--sombra);
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(15, 15, 35, 0.98);
+            backdrop-filter: blur(20px);
+            border-left: 6px solid var(--neon-primary);
+            box-shadow: -15px 0 40px rgba(0,0,0,0.7);
+            padding: 30px 25px;
+            overflow-y: auto;
+            transition: right 0.45s cubic-bezier(0.32, 0.72, 0, 1);
+            z-index: 2000;
+            color: white;
         }
+        .config-panel.open { right: 0; }
 
-        .titulo-pdfs {
-            font-size: 1.4rem;
-            color: var(--color-acento);
-            margin-bottom: calc(var(--espaciado) * 1.2);
-            padding-bottom: calc(var(--espaciado) / 2);
-            border-bottom: 2px solid var(--color-acento);
-            font-weight: 600;
-        }
-
-        .lista-pdfs {
-            display: flex;
-            flex-direction: column;
-            gap: calc(var(--espaciado) / 1.2);
-        }
-
-        .elemento-pdf {
-            background-color: #f1f3f5;
-            border-radius: var(--radio);
-            padding: calc(var(--espaciado) / 1.2);
+        .config-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: var(--sombra);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid rgba(255,255,255,0.25);
+        }
+        .config-title {
+            font-size: 1.85rem;
+            font-weight: 800;
+            letter-spacing: 1px;
         }
 
-        .nombre-pdf {
-            font-size: 0.9rem;
-            color: #212529;
-            font-weight: 500;
+        .config-section {
+            margin-bottom: 32px;
+        }
+        .config-section h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: var(--neon-primary);
         }
 
-        .btn-abrir {
-            padding: calc(var(--espaciado) / 1.5) calc(var(--espaciado) * 1.2);
-            background-color: var(--color-acento);
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            font-size: 0.9rem;
+        label {
+            display: block;
+            margin: 16px 0 8px;
+            font-size: 1rem;
             font-weight: 600;
-            border-radius: calc(var(--radio) / 2);
+        }
+
+        input[type="color"] {
+            width: 100%;
+            height: 54px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--neon-primary);
+        }
+
+        .preview-note {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        button {
+            margin-top: 24px;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #C026D3, #9F1A9E);
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            width: 100%;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
+        button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(192,38,211,0.5); }
 
-        .btn-abrir:hover {
-            background-color: #003060;
+        .reset-btn {
+            background: #555;
         }
 
-        .estado {
-            text-align: center;
-            padding: calc(var(--espaciado) * 3);
-            color: #495057;
-            font-size: 1.1rem;
+        @media (max-width: 620px) {
+            .categorias { grid-template-columns: repeat(2, 1fr); }
+            h1 { font-size: 2.2rem; }
         }
-
-        @media (max-width: 500px) {
-            body {
-                padding: var(--espaciado);
-            }
-            .titulo-principal {
-                font-size: 2rem;
-            }
-            .contenedor-botones {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .elemento-pdf {
-                flex-direction: column;
-                gap: calc(var(--espaciado) / 1.2);
-                text-align: center;
-            }
-            .contenedor-redes {
-                grid-template-columns: repeat(2, 1fr);
-                gap: calc(var(--espaciado) / 2);
-            }
+        @media (max-width: 420px) {
+            .categorias { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body>
-    <div class="contenedor-principal">
-        <h1 class="titulo-principal">ACADEMIA DIGITAL DE LIBROS</h1>
+<body class="modo-neon-purple animations-on neon-fonts-on">
 
-        <div class="seccion-info">
-            <h2 class="subtitulo-descripcion">Acceso Exclusivo y Permanente de por vida.</h2>
-            <p class="texto-descripcion">
-                Obtén desbloqueo de por vida a nuestra biblioteca digital, con actualizaciones constantes de títulos en diversas áreas del conocimiento. Nuestra colección se expande mensualmente para brindarte siempre material relevante y de calidad.
-                <br><h2>+ 150.000 libros </h2><br>
+    <div class="contenedor">
+        <h1 id="main-title">ACADEMIA DIGITAL DE LIBROS</h1>
+
+        <div class="info" id="info-box">
+            <h2 style="font-size: 1.5rem; margin-bottom: 12px;">Acceso Exclusivo y Permanente de por Vida</h2>
+            <p style="font-size: 1.08rem; line-height: 1.6;">
+                Más de <strong>150.000 libros</strong> digitales con actualizaciones mensuales.<br>
+                Desbloqueo total y permanente.
             </p>
 
-            <h3 class="titulo-redes">Contáctanos en Nuestras Redes</h3>
-            <div class="contenedor-redes">
-                <a href="https://wa.me/5491122902239" class="btn-red whatsapp" target="_blank">
-                    <i class="fab fa-whatsapp icono-red"></i>
-                    WhatsApp
-                </a>
-                <a href="https://instagram.com/tuusuario_academia" class="btn-red instagram" target="_blank">
-                    <i class="fab fa-instagram icono-red"></i>
-                    Instagram
-                </a>
-                <a href="https://facebook.com/tupagina_academia" class="btn-red facebook" target="_blank">
-                    <i class="fab fa-facebook-f icono-red"></i>
-                    Facebook
-                </a>
-                <a href="https://vm.tiktok.com/ZS9RVF5TST6M6-iF3yb/" class="btn-red tiktok" target="_blank">
-                    <i class="fab fa-tiktok icono-red"></i>
-                    TikTok
-                </a>
-                <a href="https://tu-enlace-de-trabajo.com" class="btn-red trabajo" target="_blank">
-                    <i class="fas fa-briefcase icono-red"></i>
-                    Trabaja con Nosotros
-                </a>
+            <h3 style="margin: 26px 0 14px; font-size: 1.25rem;">Contáctanos en Nuestras Redes</h3>
+            <div class="redes">
+                <a href="https://wa.me/5491122902239" class="btn-red whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://instagram.com/tuusuario_academia" class="btn-red instagram" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://facebook.com/tupagina_academia" class="btn-red facebook" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="https://vm.tiktok.com/ZS9RVF5TST6M6-iF3yb/" class="btn-red tiktok" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+                <a href="https://tu-enlace-de-trabajo.com" class="btn-red trabajo" target="_blank"><i class="fas fa-briefcase"></i> Trabaja con Nosotros</a>
+                <div id="openConfig" class="btn-red btn-temas">
+                    <i class="fas fa-palette"></i> Temas Neon
+                </div>
             </div>
         </div>
 
-        <a href="https://accounts.google.com/ServiceLogin?service=wise&passive=true&continue=https://drive.google.com/" class="btn-sesion" target="_blank">
-            INICIAR SESIÓN PARA ACCEDER A LA BIBLIOTECA
+        <a href="https://accounts.google.com/ServiceLogin?service=wise&passive=true&continue=https://drive.google.com/" 
+           class="btn-sesion" target="_blank">
+            INICIAR SESIÓN EN LA BIBLIOTECA
         </a>
 
-        <div class="contenedor-botones">
-            <a href="https://drive.google.com/drive/folders/120Fhk8EhI9oUUcoZiOjXR4iLN2tmKwHK" class="btn-carpeta filosofia" target="_blank">
-                <span class="material-symbols-outlined icono-carpeta">menu_book</span>
-                Filosofía
+        <div class="categorias">
+            <a href="https://drive.google.com/drive/folders/120Fhk8EhI9oUUcoZiOjXR4iLN2tmKwHK" class="btn-carpeta" target="_blank">
+                <span class="material-symbols-outlined icono">menu_book</span> Filosofía
             </a>
-            <a href="https://drive.google.com/drive/folders/1KChLxlLLqMEFxQ6ASK3t3RORe45p12mJ" class="btn-carpeta historia" target="_blank">
-                <span class="material-symbols-outlined icono-carpeta">history_edu</span>
-                Historia
+            <a href="https://drive.google.com/drive/folders/1KChLxlLLqMEFxQ6ASK3t3RORe45p12mJ" class="btn-carpeta" target="_blank">
+                <span class="material-symbols-outlined icono">history_edu</span> Historia
             </a>
-            <a href="https://drive.google.com/drive/folders/1Yn89vyhUYnPwphLVGpf1TymFVZ0s8GLN" class="btn-carpeta ciencias" target="_blank">
-                <span class="material-symbols-outlined icono-carpeta">science</span>
-                Ciencias
+            <a href="https://drive.google.com/drive/folders/1Yn89vyhUYnPwphLVGpf1TymFVZ0s8GLN" class="btn-carpeta" target="_blank">
+                <span class="material-symbols-outlined icono">science</span> Ciencias
             </a>
-            <a href="https://drive.google.com/drive/folders/1ym39m7ljdTl0hC4ZpWFvFRrRJ7m9gNvC" class="btn-carpeta literatura" target="_blank">
-                <span class="material-symbols-outlined icono-carpeta">library_books</span>
-                Literatura
+            <a href="https://drive.google.com/drive/folders/1ym39m7ljdTl0hC4ZpWFvFRrRJ7m9gNvC" class="btn-carpeta" target="_blank">
+                <span class="material-symbols-outlined icono">library_books</span> Literatura
             </a>
-            <a href="https://drive.google.com/drive/folders/1PBJoNoMs6LFnIy3BzCHKW7ZPp0KpLH2U" class="btn-carpeta arte" target="_blank">
-                <span class="material-symbols-outlined icono-carpeta">palette</span>
-                Arte
+            <a href="https://drive.google.com/drive/folders/1PBJoNoMs6LFnIy3BzCHKW7ZPp0KpLH2U" class="btn-carpeta" target="_blank">
+                <span class="material-symbols-outlined icono">palette</span> Arte
             </a>
-            <a href="https://drive.google.com/drive/folders/1aLc5gwah6C9wS_TBVa2zcPGgztZz7tYD" class="btn-carpeta tecnologia" target="_blank">
-                <span class="material-symbols-outlined icono-carpeta">computer</span>
-                Tecnología
+            <a href="https://drive.google.com/drive/folders/1aLc5gwah6C9wS_TBVa2zcPGgztZz7tYD" class="btn-carpeta" target="_blank">
+                <span class="material-symbols-outlined icono">computer</span> Tecnología
             </a>
         </div>
+    </div>
 
-        <div class="contenedor-pdfs" id="contenedor-pdfs"></div>
+    <!-- PANEL DE TEMAS MEJORADO Y PROFESIONAL -->
+    <div class="config-panel" id="configPanel">
+        <div class="config-header">
+            <div class="config-title">⚡ Neon Profesional</div>
+            <div class="close-config" id="closeConfig">✕</div>
+        </div>
+
+        <div class="config-section">
+            <h3>1. Selecciona Modo Neon</h3>
+            <select id="themeSelect" style="width:100%; padding:14px; border-radius:12px; background:#1f1f2e; color:white; border:none; font-size:1.05rem;">
+                <option value="modo-neon-purple">Neon Purple</option>
+                <option value="modo-neon-cyber">Neon Cyber Blue</option>
+                <option value="modo-neon-rainbow">Neon Rainbow</option>
+                <option value="modo-neon-green">Neon Green Acid</option>
+                <option value="modo-neon-pink">Neon Pink</option>
+                <option value="modo-neon-orange">Neon Orange</option>
+                <option value="modo-neon-red">Neon Red</option>
+                <option value="modo-neon-gold">Neon Gold</option>
+                <option value="modo-neon-violet">Neon Violet</option>
+                <option value="modo-neon-cyan">Neon Cyan</option>
+                <option value="modo-neon-magenta">Neon Magenta</option>
+                <option value="modo-neon-electric">Neon Electric</option>
+                <option value="modo-neon-rgb">Neon RGB (Arcoíris Animado)</option>
+            </select>
+            <p class="preview-note">Los cambios se aplican en tiempo real</p>
+        </div>
+
+        <div class="config-section">
+            <h3>2. Color Principal Neon</h3>
+            <input type="color" id="neonColor" value="#C026D3">
+        </div>
+
+        <div class="config-section">
+            <h3>3. Ajustes de Intensidad</h3>
+            <label>Intensidad del Glow <span id="intensityValue">100%</span></label>
+            <input type="range" id="intensity" min="0.4" max="2.5" step="0.1" value="1">
+
+            <label>Radio de Bordes <span id="radiusValue">14</span></label>
+            <input type="range" id="borderRadius" min="6" max="28" step="1" value="14">
+        </div>
+
+        <div class="config-section">
+            <h3>4. Efectos Globales</h3>
+            <label>
+                <input type="checkbox" id="animToggle" checked> Activar animaciones neon en carpetas
+            </label>
+            <label>
+                <input type="checkbox" id="fontNeonToggle" checked> 
+                Activar Neon en <strong>TODAS las letras y textos</strong> (incluye descripciones y categorías)
+            </label>
+        </div>
+
+        <button id="saveConfig">💾 Guardar Configuración Neon</button>
+        <button id="resetConfig" class="reset-btn">🔄 Restaurar Todo por Defecto</button>
+    </div>
 
     <script>
-        // Configuración directa de enlaces
-        const CONFIG_COLECCIONES = {
-            filosofia: {
-                nombre: "Filosofía",
-                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_FILOSOFIA",
-                archivos: [
-                    { nombre: "Introducción a la Filosofía Contemporánea", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_FILOSOFIA_1/view" },
-                    { nombre: "Ética y Moral en la Sociedad Moderna", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_FILOSOFIA_2/view" },
-                    { nombre: "Historia de las Escuelas Filosóficas", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_FILOSOFIA_3/view" }
-                ]
-            },
-            historia: {
-                nombre: "Historia",
-                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_HISTORIA",
-                archivos: [
-                    { nombre: "Historia Universal Contemporánea", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_HISTORIA_1/view" },
-                    { nombre: "Orígenes de la Civilización Occidental", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_HISTORIA_2/view" },
-                    { nombre: "Historia de América Latina", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_HISTORIA_3/view" }
-                ]
-            },
-            ciencias: {
-                nombre: "Ciencias",
-                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_CIENCIAS",
-                archivos: [
-                    { nombre: "Física Cuántica para Principiantes", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_CIENCIAS_1/view" },
-                    { nombre: "Biología Molecular y Genética", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_CIENCIAS_2/view" },
-                    { nombre: "Química Orgánica Básica", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_CIENCIAS_3/view" }
-                ]
-            },
-            literatura: {
-                nombre: "Literatura",
-                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_LITERATURA",
-                archivos: [
-                    { nombre: "Antología de Poesía Hispanoamericana", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_LITERATURA_1/view" },
-                    { nombre: "Novelas Clásicas de la Literatura Mundial", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_LITERATURA_2/view" },
-                    { nombre: "Teoría y Crítica Literaria", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_LITERATURA_3/view" }
-                ]
-            },
-            arte: {
-                nombre: "Arte",
-                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_ARTE",
-                archivos: [
-                    { nombre: "Historia del Arte Universal", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_ARTE_1/view" },
-                    { nombre: "Pintura Contemporánea", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_ARTE_2/view" },
-                    { nombre: "Arquitectura y Diseño", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_ARTE_3/view" }
-                ]
-            },
-            tecnologia: {
-                nombre: "Tecnología",
-                enlaceCarpeta: "https://drive.google.com/drive/folders/ID_CARPETA_TECNOLOGIA",
-                archivos: [
-                    { nombre: "Programación en Python para Principiantes", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_TECNOLOGIA_1/view" },
-                    { nombre: "Inteligencia Artificial Aplicada", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_TECNOLOGIA_2/view" },
-                    { nombre: "Seguridad Informática Básica", enlace: "https://drive.google.com/file/d/ID_ARCHIVO_TECNOLOGIA_3/view" }
-                ]
-            }
-        };
+        const body = document.body;
+        const configPanel = document.getElementById('configPanel');
+        const openConfig = document.getElementById('openConfig');
+        const closeConfig = document.getElementById('closeConfig');
+        const themeSelect = document.getElementById('themeSelect');
+        const neonColorInput = document.getElementById('neonColor');
+        const intensitySlider = document.getElementById('intensity');
+        const radiusSlider = document.getElementById('borderRadius');
+        const intensityValue = document.getElementById('intensityValue');
+        const radiusValue = document.getElementById('radiusValue');
+        const animToggle = document.getElementById('animToggle');
+        const fontNeonToggle = document.getElementById('fontNeonToggle');
 
-        // Función para mostrar la colección seleccionada o abrir enlace directo
-        function mostrarOCerrarCarpeta(tema) {
-            const coleccion = CONFIG_COLECCIONES[tema];
-            window.open(coleccion.enlaceCarpeta, "_blank");
+        const neonClasses = [
+            'modo-neon-purple','modo-neon-cyber','modo-neon-rainbow','modo-neon-green',
+            'modo-neon-pink','modo-neon-orange','modo-neon-red','modo-neon-gold',
+            'modo-neon-violet','modo-neon-cyan','modo-neon-magenta','modo-neon-electric','modo-neon-rgb'
+        ];
+
+        function loadConfig() {
+            const saved = localStorage.getItem('neonConfig');
+            if (saved) {
+                const c = JSON.parse(saved);
+                body.classList.remove(...neonClasses);
+                body.classList.add(c.theme || 'modo-neon-purple');
+                themeSelect.value = c.theme || 'modo-neon-purple';
+                neonColorInput.value = c.neonColor || '#C026D3';
+                intensitySlider.value = c.intensity || 1;
+                radiusSlider.value = c.radius || 14;
+                animToggle.checked = c.animations !== false;
+                fontNeonToggle.checked = c.fontNeon !== false;
+                body.classList.toggle('animations-on', animToggle.checked);
+                body.classList.toggle('neon-fonts-on', fontNeonToggle.checked);
+                applyChanges();
+            }
         }
+
+        function saveConfig() {
+            const config = {
+                theme: themeSelect.value,
+                neonColor: neonColorInput.value,
+                intensity: parseFloat(intensitySlider.value),
+                radius: parseInt(radiusSlider.value),
+                animations: animToggle.checked,
+                fontNeon: fontNeonToggle.checked
+            };
+            localStorage.setItem('neonConfig', JSON.stringify(config));
+            alert("✅ Configuración Neon guardada correctamente");
+        }
+
+        function applyChanges() {
+            const intensity = parseFloat(intensitySlider.value);
+            const radius = parseInt(radiusSlider.value);
+            const color = neonColorInput.value;
+            const isRGB = themeSelect.value === 'modo-neon-rgb';
+
+            document.documentElement.style.setProperty('--neon-intensity', intensity);
+            document.documentElement.style.setProperty('--radio', radius + 'px');
+            document.documentElement.style.setProperty('--neon-primary', color);
+
+            intensityValue.textContent = Math.round(intensity * 100) + '%';
+            radiusValue.textContent = radius;
+
+            // Neon en letras (siempre se aplica correctamente)
+            body.classList.toggle('neon-fonts-on', fontNeonToggle.checked);
+
+            // Bordes solo en modo normal (en RGB los bordes ya tienen su propia animación)
+            if (!isRGB) {
+                document.querySelectorAll('.info, .btn-carpeta').forEach(el => {
+                    el.style.borderColor = color;
+                    el.style.boxShadow = `0 0 ${24 * intensity}px ${color}`;
+                });
+            }
+
+            body.classList.toggle('animations-on', animToggle.checked);
+        }
+
+        function init() {
+            openConfig.addEventListener('click', () => configPanel.classList.add('open'));
+            closeConfig.addEventListener('click', () => configPanel.classList.remove('open'));
+
+            themeSelect.addEventListener('change', () => {
+                body.classList.remove(...neonClasses);
+                body.classList.add(themeSelect.value);
+                applyChanges();
+            });
+
+            neonColorInput.addEventListener('input', applyChanges);
+            intensitySlider.addEventListener('input', applyChanges);
+            radiusSlider.addEventListener('input', applyChanges);
+            animToggle.addEventListener('change', applyChanges);
+            fontNeonToggle.addEventListener('change', applyChanges);
+
+            document.getElementById('saveConfig').addEventListener('click', saveConfig);
+            document.getElementById('resetConfig').addEventListener('click', () => {
+                if (confirm('¿Restaurar todo por defecto?')) {
+                    localStorage.removeItem('neonConfig');
+                    location.reload();
+                }
+            });
+
+            loadConfig();
+            applyChanges();
+        }
+
+        window.addEventListener('load', init);
     </script>
-    </div>
 </body>
 </html>
