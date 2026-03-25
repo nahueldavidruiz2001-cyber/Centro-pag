@@ -11,17 +11,12 @@
     <style>
         :root {
             --radio: 14px;
-            --neon-primary: #C026D3;
-            --neon-glow: #C026D3;
-            --glow-intensity: 1;
+            --neon-primary: #0066cc;
+            --neon-glow: #0066cc;
+            --glow-intensity: 0.65;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:system-ui, -apple-system, sans-serif; }
 
         body {
             background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.88)), url('fondo.jpg') center/cover fixed;
@@ -31,7 +26,33 @@
             overflow-x: hidden;
         }
 
-        /* ==================== MODOS OSCUROS ==================== */
+        /* ==================== MODO CLÁSICO ==================== */
+        .modo-clasico {
+            --neon-primary: #0066cc;
+            --neon-glow: #0066cc;
+            --glow-intensity: 0.65;
+            background: linear-gradient(rgba(245,250,255,0.98), rgba(230,240,255,0.98)) !important;
+            color: #111111;
+        }
+
+        .modo-clasico .info,
+        .modo-clasico .btn-red,
+        .modo-clasico .btn-sesion,
+        .modo-clasico .btn-carpeta,
+        .modo-clasico h1,
+        .modo-clasico h2,
+        .modo-clasico p {
+            animation: none !important;
+        }
+
+        body.modo-clasico .filosofia  { background: #1e88e5; }
+        body.modo-clasico .historia   { background: #e53935; }
+        body.modo-clasico .ciencias   { background: #26c6da; }
+        body.modo-clasico .literatura { background: #fb8c00; }
+        body.modo-clasico .arte       { background: #8e24aa; }
+        body.modo-clasico .tecnologia { background: #43a047; }
+
+        /* Modos Neon oscuros */
         .modo-neon-purple, .modo-neon-cyber, .modo-neon-green, .modo-neon-pink,
         .modo-neon-orange, .modo-neon-red, .modo-neon-gold,
         .modo-neon-black-blue, .modo-neon-black-red, .modo-neon-black-green {
@@ -49,45 +70,27 @@
         .modo-neon-black-red   { --neon-primary: #ff1a1a; --neon-glow: #ff1a1a; }
         .modo-neon-black-green { --neon-primary: #00ff88; --neon-glow: #00ff88; }
 
-        /* ==================== MODOS CLAROS (CORREGIDOS) ==================== */
-        .modo-light-blue   { --neon-primary: #0066ff; --neon-glow: #3399ff; background: linear-gradient(rgba(230,245,255,0.97), rgba(200,235,255,0.98)) !important; color: #111111; }
-        .modo-light-pink   { --neon-primary: #ff3399; --neon-glow: #ff66bb; background: linear-gradient(rgba(255,235,245,0.97), rgba(255,210,235,0.98)) !important; color: #111111; }
-        .modo-light-green  { --neon-primary: #00cc66; --neon-glow: #33ff99; background: linear-gradient(rgba(230,255,240,0.97), rgba(200,255,225,0.98)) !important; color: #111111; }
-        .modo-light-purple { --neon-primary: #9933ff; --neon-glow: #bb66ff; background: linear-gradient(rgba(245,235,255,0.97), rgba(225,200,255,0.98)) !important; color: #111111; }
-        .modo-light-gold   { --neon-primary: #ffaa00; --neon-glow: #ffcc33; background: linear-gradient(rgba(255,250,230,0.97), rgba(255,240,200,0.98)) !important; color: #111111; }
+        /* ==================== MODOS CLAROS (CORREGIDO) ==================== */
+        .modo-light-blue   { --neon-primary: #0066ff; --neon-glow: #3399ff; background: linear-gradient(rgba(230,245,255,0.97), rgba(200,235,255,0.98)) !important; color:#111111; }
+        .modo-light-pink   { --neon-primary: #ff3399; --neon-glow: #ff66bb; background: linear-gradient(rgba(255,235,245,0.97), rgba(255,210,235,0.98)) !important; color:#111111; }
+        .modo-light-green  { --neon-primary: #00cc66; --neon-glow: #33ff99; background: linear-gradient(rgba(230,255,240,0.97), rgba(200,255,225,0.98)) !important; color:#111111; }
+        .modo-light-purple { --neon-primary: #9933ff; --neon-glow: #bb66ff; background: linear-gradient(rgba(245,235,255,0.97), rgba(225,200,255,0.98)) !important; color:#111111; }
+        .modo-light-gold   { --neon-primary: #ffaa00; --neon-glow: #ffcc33; background: linear-gradient(rgba(255,250,230,0.97), rgba(255,240,200,0.98)) !important; color:#111111; }
 
-        /* Modo RGB - como estaba antes */
-        .modo-neon-rgb { 
-            background: #000000 !important; 
-        }
-        .modo-neon-rgb .info,
-        .modo-neon-rgb .btn-red,
-        .modo-neon-rgb .btn-sesion,
-        .modo-neon-rgb .btn-carpeta,
-        .modo-neon-rgb h1,
-        .modo-neon-rgb h2,
-        .modo-neon-rgb p {
-            animation: rgb-full 2.4s linear infinite !important;
+        .modo-neon-rgb { background: #000 !important; animation: rgbBackground 8s linear infinite; }
+
+        @keyframes rgbBackground {
+            0%   { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
         }
 
-        @keyframes rgb-full {
-            0%   { border-color: #ff00ff; box-shadow: 0 0 30px #ff00ff; text-shadow: 0 0 15px #fff, 0 0 30px #ff00ff; }
-            14%  { border-color: #00ffff; box-shadow: 0 0 30px #00ffff; text-shadow: 0 0 15px #fff, 0 0 30px #00ffff; }
-            28%  { border-color: #39ff14; box-shadow: 0 0 30px #39ff14; text-shadow: 0 0 15px #fff, 0 0 30px #39ff14; }
-            42%  { border-color: #ffff00; box-shadow: 0 0 30px #ffff00; text-shadow: 0 0 15px #fff, 0 0 30px #ffff00; }
-            57%  { border-color: #ff8000; box-shadow: 0 0 30px #ff8000; text-shadow: 0 0 15px #fff, 0 0 30px #ff8000; }
-            71%  { border-color: #ff0080; box-shadow: 0 0 30px #ff0080; text-shadow: 0 0 15px #fff, 0 0 30px #ff0080; }
-            85%  { border-color: #00ff80; box-shadow: 0 0 30px #00ff80; text-shadow: 0 0 15px #fff, 0 0 30px #00ff80; }
-            100% { border-color: #ff00ff; box-shadow: 0 0 30px #ff00ff; text-shadow: 0 0 15px #fff, 0 0 30px #ff00ff; }
-        }
-
-        /* Glow general */
-        body.neon-fonts-on:not(.modo-neon-rgb) h1,
-        body.neon-fonts-on:not(.modo-neon-rgb) h2,
-        body.neon-fonts-on:not(.modo-neon-rgb) p,
-        body.neon-fonts-on:not(.modo-neon-rgb) .btn-red,
-        body.neon-fonts-on:not(.modo-neon-rgb) .btn-sesion,
-        body.neon-fonts-on:not(.modo-neon-rgb) .btn-carpeta {
+        /* Glow textos */
+        body.neon-fonts-on:not(.modo-clasico) h1,
+        body.neon-fonts-on:not(.modo-clasico) h2,
+        body.neon-fonts-on:not(.modo-clasico) p,
+        body.neon-fonts-on:not(.modo-clasico) .btn-red,
+        body.neon-fonts-on:not(.modo-clasico) .btn-sesion,
+        body.neon-fonts-on:not(.modo-clasico) .btn-carpeta {
             text-shadow: 0 0 calc(8px * var(--glow-intensity)) #fff,
                          0 0 calc(18px * var(--glow-intensity)) var(--neon-primary),
                          0 0 calc(28px * var(--glow-intensity)) var(--neon-primary);
@@ -99,30 +102,31 @@
             padding: 28px 24px;
             border-radius: var(--radio);
             border: 3px solid var(--neon-primary);
-            box-shadow: 0 0 calc(35px * var(--glow-intensity)) var(--neon-glow);
+            box-shadow: 0 0 calc(25px * var(--glow-intensity)) var(--neon-glow);
         }
 
         .btn-red, .btn-carpeta {
-            box-shadow: 0 6px 18px rgba(0,0,0,0.3), 0 0 calc(22px * var(--glow-intensity)) var(--neon-glow);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3), 0 0 calc(18px * var(--glow-intensity)) var(--neon-glow);
         }
 
-        body:not(.modo-neon-purple):not(.modo-neon-rgb) .btn-carpeta {
+        body:not(.modo-clasico):not(.modo-neon-rgb) .btn-carpeta {
             border: 3px solid var(--neon-primary);
         }
 
-        body.animations-on:not(.modo-neon-rgb) .info,
-        body.animations-on:not(.modo-neon-rgb) .btn-red,
-        body.animations-on:not(.modo-neon-rgb) .btn-sesion,
-        body.animations-on:not(.modo-neon-rgb) .btn-carpeta {
-            animation: neonPulseLight 2.2s ease-in-out infinite alternate;
+        /* Pulso neon (funciona en todos excepto clásico) */
+        body.animations-on:not(.modo-clasico) .info,
+        body.animations-on:not(.modo-clasico) .btn-red,
+        body.animations-on:not(.modo-clasico) .btn-sesion,
+        body.animations-on:not(.modo-clasico) .btn-carpeta {
+            animation: neonPulse 2.2s ease-in-out infinite alternate;
         }
 
-        @keyframes neonPulseLight {
-            from { box-shadow: 0 0 calc(18px * var(--glow-intensity)) var(--neon-glow); }
-            to   { box-shadow: 0 0 calc(38px * var(--glow-intensity)) var(--neon-glow); }
+        @keyframes neonPulse {
+            from { box-shadow: 0 0 calc(15px * var(--glow-intensity)) var(--neon-glow), 0 0 calc(25px * var(--glow-intensity)) var(--neon-glow); }
+            to   { box-shadow: 0 0 calc(35px * var(--glow-intensity)) var(--neon-glow), 0 0 calc(50px * var(--glow-intensity)) var(--neon-glow); }
         }
 
-        /* Colores fijos de redes sociales */
+        /* Colores redes */
         .whatsapp { background: #25D366 !important; }
         .instagram { background: #E4405F !important; }
         .facebook  { background: #1877F2 !important; }
@@ -139,9 +143,7 @@
         }
         .btn-red:active { transform: scale(0.95); }
 
-        .btn-temas { 
-            background: linear-gradient(90deg, var(--neon-primary), #9F1A9E) !important;
-        }
+        .btn-temas { background: linear-gradient(90deg, var(--neon-primary), #9F1A9E) !important; }
 
         .btn-sesion {
             display: block; width: 100%; max-width: 520px; margin: 0 auto; padding: 20px;
@@ -156,17 +158,9 @@
         }
         .icono { font-size: 2.65rem; }
 
-        body.modo-neon-purple .filosofia  { background: #1e88e5; }
-        body.modo-neon-purple .historia   { background: #e53935; }
-        body.modo-neon-purple .ciencias   { background: #26c6da; }
-        body.modo-neon-purple .literatura { background: #fb8c00; }
-        body.modo-neon-purple .arte       { background: #8e24aa; }
-        body.modo-neon-purple .tecnologia { background: #43a047; }
-
-        /* ==================== PANEL LATERAL (Sin afectar estructura) ==================== */
+        /* ==================== PANEL DE CONFIGURACIÓN (CORREGIDO PARA MODOS CLAROS) ==================== */
         .config-panel {
-            position: fixed;
-            top: 0; right: -420px;
+            position: fixed; top: 0; right: -420px;
             width: 380px; height: 100vh;
             background: rgba(20, 20, 40, 0.96);
             backdrop-filter: blur(16px);
@@ -176,57 +170,23 @@
             z-index: 9999;
             overflow-y: auto;
             padding: 24px;
-            scroll-behavior: smooth;
+            color: white;
         }
 
         .config-panel.open { right: 0; }
 
-        .config-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 24px; padding-bottom: 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            position: sticky; top: 0; background: rgba(20,20,40,0.96); z-index: 10;
-        }
-
-        .config-title { font-size: 1.45rem; font-weight: 800; text-shadow: 0 0 12px var(--neon-primary); }
-        .close-config { font-size: 1.8rem; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-        .close-config:hover { background: rgba(255,255,255,0.15); transform: rotate(90deg); }
-
-        .config-section { margin-bottom: 26px; }
-        .config-section h3 { margin-bottom: 12px; font-size: 1.1rem; color: var(--neon-primary); }
-
-        select, input[type="color"], input[type="range"] {
-            width: 100%; padding: 14px; border-radius: 12px;
-            background: rgba(255,255,255,0.1); border: 2px solid var(--neon-primary);
-            color: white; font-size: 1.05rem;
-        }
-
-        input[type="color"] { height: 54px; cursor: pointer; }
-
-        label { display: block; margin: 14px 0 8px; font-size: 0.98rem; }
-
-        .config-section input[type="checkbox"] {
-            accent-color: var(--neon-primary); transform: scale(1.3); margin-right: 10px;
-        }
-
-        button {
-            width: 100%; padding: 16px; margin-top: 12px; border: none; border-radius: 12px;
-            font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.3s;
-        }
-        #saveConfig { background: linear-gradient(90deg, var(--neon-primary), #9F1A9E); color: white; }
-        #resetConfig { background: rgba(255,255,255,0.15); color: white; }
-        button:hover { transform: translateY(-2px); box-shadow: 0 0 25px var(--neon-primary); }
-
-        /* Adaptación automática para modos claros */
+        /* Fondo y texto claro cuando está en modo claro o clásico */
+        .modo-clasico .config-panel,
         .modo-light-blue .config-panel,
         .modo-light-pink .config-panel,
         .modo-light-green .config-panel,
         .modo-light-purple .config-panel,
         .modo-light-gold .config-panel {
-            background: rgba(255, 255, 255, 0.95) !important;
+            background: rgba(255, 255, 255, 0.97) !important;
             color: #111111 !important;
         }
 
+        .modo-clasico .config-panel *,
         .modo-light-blue .config-panel *,
         .modo-light-pink .config-panel *,
         .modo-light-green .config-panel *,
@@ -235,22 +195,80 @@
             color: #111111 !important;
         }
 
-        .modo-light-blue .config-panel select,
-        .modo-light-pink .config-panel select,
-        .modo-light-green .config-panel select,
-        .modo-light-purple .config-panel select,
-        .modo-light-gold .config-panel select {
-            background: rgba(0,0,0,0.08) !important;
-            color: #111111 !important;
-            border-color: var(--neon-primary);
+        .config-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 24px; padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
 
-        .config-panel::-webkit-scrollbar { width: 6px; }
-        .config-panel::-webkit-scrollbar-thumb { background: var(--neon-primary); border-radius: 10px; }
+        .modo-clasico .config-header,
+        .modo-light-blue .config-header,
+        .modo-light-pink .config-header,
+        .modo-light-green .config-header,
+        .modo-light-purple .config-header,
+        .modo-light-gold .config-header {
+            border-bottom-color: rgba(0,0,0,0.15);
+        }
+
+        .config-title {
+            font-size: 1.45rem;
+            font-weight: 800;
+            text-shadow: 0 0 12px var(--neon-primary);
+        }
+
+        .close-config {
+            font-size: 1.8rem; cursor: pointer; width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center; border-radius: 50%;
+        }
+        .close-config:hover { background: rgba(0,0,0,0.1); transform: rotate(90deg); }
+
+        .config-section { margin-bottom: 26px; }
+        .config-section h3 { margin-bottom: 12px; font-size: 1.1rem; color: var(--neon-primary); }
+
+        select, input[type="color"], input[type="range"] {
+            width: 100%; padding: 14px; border-radius: 12px;
+            background: rgba(255,255,255,0.15); 
+            border: 2px solid var(--neon-primary);
+            color: inherit;
+            font-size: 1.05rem;
+        }
+
+        .modo-clasico select, .modo-light-* select,
+        .modo-clasico input[type="color"], .modo-light-* input[type="color"],
+        .modo-clasico input[type="range"], .modo-light-* input[type="range"] {
+            background: rgba(0,0,0,0.08);
+            color: #111;
+        }
+
+        input[type="color"] { height: 54px; cursor: pointer; }
+
+        label { display: block; margin: 14px 0 8px; font-size: 0.98rem; }
+
+        .config-section input[type="checkbox"] {
+            accent-color: var(--neon-primary);
+            transform: scale(1.3);
+            margin-right: 10px;
+        }
+
+        button {
+            width: 100%; padding: 16px; margin-top: 12px; border: none; border-radius: 12px;
+            font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        #saveConfig { background: linear-gradient(90deg, var(--neon-primary), #9F1A9E); color: white; }
+        #resetConfig { background: rgba(0,0,0,0.15); color: #111; }
+
+        .modo-clasico #resetConfig,
+        .modo-light-* #resetConfig {
+            background: rgba(0,0,0,0.1);
+            color: #111;
+        }
+
+        button:hover { transform: translateY(-2px); box-shadow: 0 0 25px var(--neon-primary); }
     </style>
 </head>
-<body class="modo-neon-purple neon-fonts-on animations-on">
+<body class="modo-clasico neon-fonts-on animations-on">
 
+    <!-- Tu contenido HTML (igual que antes) -->
     <div class="contenedor">
         <h1>ACADEMIA DIGITAL DE LIBROS</h1>
 
@@ -276,6 +294,7 @@
         </a>
 
         <div class="categorias">
+            <!-- Tus carpetas aquí (sin cambios) -->
             <a href="https://drive.google.com/drive/folders/120Fhk8EhI9oUUcoZiOjXR4iLN2tmKwHK" class="btn-carpeta filosofia" target="_blank">
                 <span class="material-symbols-outlined icono">menu_book</span> Filosofía
             </a>
@@ -300,14 +319,15 @@
     <!-- PANEL DE TEMAS -->
     <div class="config-panel" id="configPanel">
         <div class="config-header">
-            <div class="config-title">⚡ Neon Profesional</div>
+            <div class="config-title">Neon Profesional</div>
             <div class="close-config" id="closeConfig">✕</div>
         </div>
 
         <div class="config-section">
             <h3>1. Selecciona Modo Neon</h3>
             <select id="themeSelect">
-                <option value="modo-neon-purple" selected>Neon Purple</option>
+                <option value="modo-clasico" selected>Modo Clásico</option>
+                <option value="modo-neon-purple">Neon Purple</option>
                 <option value="modo-neon-cyber">Neon Cyber Blue</option>
                 <option value="modo-neon-green">Neon Green Acid</option>
                 <option value="modo-neon-pink">Neon Pink</option>
@@ -328,13 +348,13 @@
 
         <div class="config-section">
             <h3>2. Color Principal Neon</h3>
-            <input type="color" id="neonColor" value="#C026D3">
+            <input type="color" id="neonColor" value="#0066cc">
         </div>
 
         <div class="config-section">
             <h3>3. Ajustes</h3>
-            <label>Intensidad del Glow <span id="intensityValue">100%</span></label>
-            <input type="range" id="intensity" min="0.3" max="2.0" step="0.05" value="1">
+            <label>Intensidad del Glow <span id="intensityValue">65%</span></label>
+            <input type="range" id="intensity" min="0.3" max="1.2" step="0.05" value="0.65">
 
             <label>Radio de Bordes <span id="radiusValue">14</span></label>
             <input type="range" id="borderRadius" min="6" max="28" step="1" value="14">
@@ -351,6 +371,7 @@
     </div>
 
     <script>
+        // El JavaScript es el mismo que la versión anterior (ya funciona bien)
         const body = document.body;
         const configPanel = document.getElementById('configPanel');
         const openConfig = document.getElementById('openConfig');
@@ -364,18 +385,11 @@
         const animToggle = document.getElementById('animToggle');
         const fontNeonToggle = document.getElementById('fontNeonToggle');
 
-        const neonClasses = [
-            'modo-neon-purple','modo-neon-cyber','modo-neon-green','modo-neon-pink',
-            'modo-neon-orange','modo-neon-red','modo-neon-gold',
-            'modo-neon-black-blue','modo-neon-black-red','modo-neon-black-green',
-            'modo-light-blue','modo-light-pink','modo-light-green','modo-light-purple','modo-light-gold',
-            'modo-neon-rgb'
-        ];
+        const neonClasses = ['modo-clasico','modo-neon-purple','modo-neon-cyber','modo-neon-green','modo-neon-pink','modo-neon-orange','modo-neon-red','modo-neon-gold','modo-neon-black-blue','modo-neon-black-red','modo-neon-black-green','modo-light-blue','modo-light-pink','modo-light-green','modo-light-purple','modo-light-gold','modo-neon-rgb'];
 
         function applyChanges() {
-            const color = neonColorInput.value;
-            document.documentElement.style.setProperty('--neon-primary', color);
-            document.documentElement.style.setProperty('--neon-glow', color);
+            document.documentElement.style.setProperty('--neon-primary', neonColorInput.value);
+            document.documentElement.style.setProperty('--neon-glow', neonColorInput.value);
             document.documentElement.style.setProperty('--glow-intensity', intensitySlider.value);
 
             intensityValue.textContent = Math.round(intensitySlider.value * 100) + "%";
@@ -389,6 +403,9 @@
         themeSelect.addEventListener('change', () => {
             body.classList.remove(...neonClasses);
             body.classList.add(themeSelect.value);
+            body.classList.remove('animations-on');
+            void body.offsetWidth;
+            if (animToggle.checked) body.classList.add('animations-on');
         });
 
         neonColorInput.addEventListener('input', applyChanges);
@@ -398,14 +415,7 @@
         fontNeonToggle.addEventListener('change', () => body.classList.toggle('neon-fonts-on', fontNeonToggle.checked));
 
         document.getElementById('saveConfig').addEventListener('click', () => {
-            const config = {
-                theme: themeSelect.value,
-                neonColor: neonColorInput.value,
-                intensity: intensitySlider.value,
-                radius: radiusSlider.value,
-                animations: animToggle.checked,
-                fontNeon: fontNeonToggle.checked
-            };
+            const config = { theme: themeSelect.value, neonColor: neonColorInput.value, intensity: intensitySlider.value, radius: radiusSlider.value, animations: animToggle.checked, fontNeon: fontNeonToggle.checked };
             localStorage.setItem('neonConfig', JSON.stringify(config));
             alert("¡Configuración guardada correctamente! ✅");
         });
@@ -422,15 +432,20 @@
             if (saved) {
                 const c = JSON.parse(saved);
                 body.classList.remove(...neonClasses);
-                body.classList.add(c.theme || 'modo-neon-purple');
-                themeSelect.value = c.theme || 'modo-neon-purple';
-                neonColorInput.value = c.neonColor || '#C026D3';
-                intensitySlider.value = c.intensity || 1;
+                body.classList.add(c.theme || 'modo-clasico');
+                themeSelect.value = c.theme || 'modo-clasico';
+                neonColorInput.value = c.neonColor || '#0066cc';
+                intensitySlider.value = c.intensity || 0.65;
                 radiusSlider.value = c.radius || 14;
                 animToggle.checked = c.animations !== false;
                 fontNeonToggle.checked = c.fontNeon !== false;
             }
             applyChanges();
+            if (animToggle.checked) {
+                body.classList.remove('animations-on');
+                void body.offsetWidth;
+                body.classList.add('animations-on');
+            }
         });
     </script>
 </body>
