@@ -1,7 +1,7 @@
 {
   "usuarios": [
-    { "usuario": "admin", "contrasena": "123456" },
-    { "usuario": "juan", "contrasena": "abc123" },
+    { "usuario": "Nahu", "contrasena": "Nahu" },
+    { "usuario": "Valentin", "contrasena": "Valentín" },
     { "usuario": "maria", "contrasena": "curso2025" },
     { "usuario": "pedro", "contrasena": "1234" },
     { "usuario": "ana", "contrasena": "academia" }
