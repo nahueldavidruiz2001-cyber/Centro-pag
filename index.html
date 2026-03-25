@@ -26,7 +26,6 @@
             overflow-x: hidden;
         }
 
-        /* ==================== MODO CLÁSICO Y MODOS CLAROS ==================== */
         .modo-clasico,
         .modo-light-blue,
         .modo-light-pink,
@@ -45,7 +44,6 @@
             color: #111111;
         }
 
-        /* Modos Neon oscuros y RGB */
         .modo-neon-purple, .modo-neon-cyber, .modo-neon-green, .modo-neon-pink,
         .modo-neon-orange, .modo-neon-red, .modo-neon-gold,
         .modo-neon-black-blue, .modo-neon-black-red, .modo-neon-black-green,
@@ -499,6 +497,7 @@
         document.getElementById('resetConfig').addEventListener('click', () => {
             if (confirm("¿Restaurar todas las configuraciones por defecto?")) {
                 localStorage.removeItem('neonConfig');
+                localStorage.removeItem('usuarioLogueado');
                 location.reload();
             }
         });
@@ -536,7 +535,6 @@
                 categorias.style.opacity = "1";
                 categorias.style.pointerEvents = "all";
                 buscador.style.display = "block";
-                if (nombre) mostrarMensaje(`¡Bienvenido ${nombre.toUpperCase()}! ✅<br>Acceso permanente activado.`, "#00ff9d");
             } else {
                 seccionLogin.style.display = "block";
                 categorias.style.opacity = "0.4";
@@ -554,27 +552,27 @@
                 return;
             }
 
-            // Convertir a minúsculas para comparación insensible a mayúsculas
             usuario = usuario.toLowerCase();
             contrasena = contrasena.toLowerCase();
 
             const lista = await cargarUsuarios();
             const encontrado = lista.find(u => 
-                u.usuario.toLowerCase() === usuario && 
-                u.contrasena.toLowerCase() === contrasena
+                (u.usuario || "").toLowerCase() === usuario && 
+                (u.contrasena || "").toLowerCase() === contrasena
             );
 
             if (encontrado) {
-                localStorage.setItem('usuarioLogueado', usuario);   // Guardamos en minúsculas
+                localStorage.setItem('usuarioLogueado', usuario);
                 actualizarEstadoSesion(true, usuario);
+                mostrarMensaje(`¡Bienvenido ${usuario.toUpperCase()}! ✅<br>Acceso permanente activado.`, "#00ff9d");
             } else {
                 mostrarMensaje(`Usuario o contraseña incorrectos.<br>Si no tienes acceso, compra el curso completo.`, "red");
             }
         }
 
-        // Cargar todo al iniciar la página
+        // Cargar al iniciar
         window.addEventListener('load', async () => {
-            // === Cargar configuración guardada ===
+            // Cargar configuración de temas
             const savedConfig = localStorage.getItem('neonConfig');
             if (savedConfig) {
                 const c = JSON.parse(savedConfig);
@@ -582,22 +580,20 @@
                 body.classList.add(c.theme || 'modo-clasico');
                 themeSelect.value = c.theme || 'modo-clasico';
                 neonColorInput.value = c.neonColor || '#0066cc';
-                intensitySlider.value = c.intensity || 0.65;
-                radiusSlider.value = c.radius || 14;
+                intensitySlider.value = parseFloat(c.intensity) || 0.65;
+                radiusSlider.value = parseFloat(c.radius) || 14;
                 animToggle.checked = c.animations !== false;
                 fontNeonToggle.checked = c.fontNeon !== false;
 
-                // Aplicar efectos según guardado
-                if (c.animations !== false) body.classList.add('animations-on');
-                if (c.fontNeon !== false) body.classList.add('neon-fonts-on');
+                if (animToggle.checked) body.classList.add('animations-on');
+                if (fontNeonToggle.checked) body.classList.add('neon-fonts-on');
             } else {
-                // Valores por defecto si no hay config guardada
                 body.classList.add('animations-on');
                 body.classList.add('neon-fonts-on');
             }
             applyChanges();
 
-            // === Verificar sesión guardada ===
+            // Verificar sesión guardada
             const usuarioGuardado = localStorage.getItem('usuarioLogueado');
             if (usuarioGuardado) {
                 actualizarEstadoSesion(true, usuarioGuardado);
@@ -606,13 +602,12 @@
             }
         });
 
-        // Eventos del login
         btnLogin.addEventListener('click', intentarLogin);
         document.getElementById('inputContrasena').addEventListener('keypress', (e) => {
             if (e.key === "Enter") intentarLogin();
         });
 
-        // ==================== BUSCADOR ====================
+        // BUSCADOR
         function normalizeText(text) {
             return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
         }
