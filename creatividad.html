@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia Digital | Diseño y Creatividad</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,500,0,0" />
+
+    <style>
+        :root {
+            --radio: 18px;
+            --color-destaque: #c026d3;   /* Magenta creativo */
+            --color-claro: #f472b6;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            background: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.98)), url('fondo.jpg') center/cover fixed;
+            min-height: 100vh;
+            padding: 25px 12px;
+            color: white;
+            font-family: system-ui, sans-serif;
+        }
+
+        .contenedor { 
+            max-width: 1300px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 45px; 
+        }
+
+        h1 { 
+            text-align: center; 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            letter-spacing: -1.5px; 
+            text-transform: uppercase; 
+            background: linear-gradient(90deg, var(--color-claro), var(--color-destaque));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .info {
+            background: rgba(255,255,255,0.05);
+            padding: 35px 30px;
+            border-radius: var(--radio);
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .info h2 {
+            font-size: 1.7rem;
+            margin-bottom: 20px;
+            color: var(--color-claro);
+        }
+
+        .info p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .subtitulo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-destaque);
+            margin-top: 22px;
+            font-style: italic;
+        }
+
+        .categorias { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 20px; 
+        }
+
+        .btn-categoria {
+            height: 120px;
+            border-radius: var(--radio);
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-categoria::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-categoria:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.65);
+        }
+
+        .btn-categoria:hover::before {
+            left: 100%;
+        }
+
+        .icono { 
+            font-size: 3.2rem; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        /* Paleta de colores (igual que en las versiones anteriores) */
+        .cat1  { background: linear-gradient(135deg, #e63939, #d62828); }
+        .cat2  { background: linear-gradient(135deg, #457b9d, #1d3557); }
+        .cat3  { background: linear-gradient(135deg, #2a9d8f, #1f7a6e); }
+        .cat4  { background: linear-gradient(135deg, #f4a261, #e76f51); }
+        .cat5  { background: linear-gradient(135deg, #8338ec, #3a0ca3); }
+        .cat6  { background: linear-gradient(135deg, #fb5607, #ff006e); }
+        .cat7  { background: linear-gradient(135deg, #06d6a0, #118ab2); }
+        .cat8  { background: linear-gradient(135deg, #ffd166, #ff9f1c); }
+        .cat9  { background: linear-gradient(135deg, #06ff9f, #00cc77); }
+        .cat10 { background: linear-gradient(135deg, #9b5de5, #6a2c9f); }
+
+        .cat11 { background: linear-gradient(135deg, #00b4d8, #0077b6); }
+        .cat12 { background: linear-gradient(135deg, #ef233c, #d90429); }
+        .cat13 { background: linear-gradient(135deg, #7209b7, #560bad); }
+        .cat14 { background: linear-gradient(135deg, #06d6a0, #00b894); }
+        .cat15 { background: linear-gradient(135deg, #f72585, #b5179e); }
+        .cat16 { background: linear-gradient(135deg, #00c4cc, #007f8c); }
+        .cat17 { background: linear-gradient(135deg, #ffc300, #ff9500); }
+        .cat18 { background: linear-gradient(135deg, #ff4d6d, #e63946); }
+        .cat19 { background: linear-gradient(135deg, #00f5d4, #00b8a9); }
+        .cat20 { background: linear-gradient(135deg, #c77dff, #9d4edd); }
+
+        .cat21 { background: linear-gradient(135deg, #ff7b00, #e65c00); }
+        .cat22 { background: linear-gradient(135deg, #4cc9f0, #2a9ed4); }
+        .cat23 { background: linear-gradient(135deg, #a7c957, #6a994e); }
+        .cat24 { background: linear-gradient(135deg, #f15bb5, #c9187e); }
+        .cat25 { background: linear-gradient(135deg, #00f59e, #00c27a); }
+        .cat26 { background: linear-gradient(135deg, #b5179e, #7209b7); }
+        .cat27 { background: linear-gradient(135deg, #ffd60a, #ffaa00); }
+        .cat28 { background: linear-gradient(135deg, #e63946, #9e2a2f); }
+        .cat29 { background: linear-gradient(135deg, #00f5d4, #00a8a0); }
+        .cat30 { background: linear-gradient(135deg, #f94144, #d62828); }
+
+        .cat31 { background: linear-gradient(135deg, #9d4edd, #7b2cbf); }
+        .cat32 { background: linear-gradient(135deg, #06ffa5, #00cc7a); }
+        .cat33 { background: linear-gradient(135deg, #ffb703, #fb8500); }
+        .cat34 { background: linear-gradient(135deg, #f72585, #b5179e); }
+        .cat35 { background: linear-gradient(135deg, #48cae4, #0096c7); }
+        .cat36 { background: linear-gradient(135deg, #74c69d, #52b788); }
+        .cat37 { background: linear-gradient(135deg, #ff4d94, #e6396b); }
+        .cat38 { background: linear-gradient(135deg, #00e5ff, #00b0d4); }
+        .cat39 { background: linear-gradient(135deg, #ff9f1c, #e67e00); }
+        .cat40 { background: linear-gradient(135deg, #c77dff, #9d4edd); }
+
+        .cat41 { background: linear-gradient(135deg, #00f5c8, #00b89e); }
+        .cat42 { background: linear-gradient(135deg, #ffd60a, #ffaa00); }
+        .cat43 { background: linear-gradient(135deg, #e63946, #9e2a2f); }
+        .cat44 { background: linear-gradient(135deg, #06d6a0, #00a88a); }
+        .cat45 { background: linear-gradient(135deg, #a45cff, #7b2cbf); }
+        .cat46 { background: linear-gradient(135deg, #ff7b00, #e65c00); }
+        .cat47 { background: linear-gradient(135deg, #48cae4, #0096c7); }
+        .cat48 { background: linear-gradient(135deg, #ff4d94, #e6396b); }
+        .cat49 { background: linear-gradient(135deg, #74c69d, #52b788); }
+        .cat50 { background: linear-gradient(135deg, #f72585, #b5179e); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .info h2 { font-size: 1.4rem; }
+            .info p { font-size: 1rem; }
+            .categorias { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+            .btn-categoria { height: 105px; font-size: 1.1rem; }
+            .icono { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>DISEÑO Y CREATIVIDAD</h1>
+
+        <div class="info">
+            <h2>Desata tu Creatividad y Diseña el Futuro</h2>
+            <p>Aprende diseño gráfico, UI/UX, ilustración, branding, motion graphics, fotografía, edición de video, tipografía y todas las herramientas creativas que necesitas para destacar. Recursos prácticos con Photoshop, Illustrator, Figma, Canva, After Effects y más.</p>
+            <div class="subtitulo">Diseño y Creatividad en 50 Compendios</div>
+        </div>
+
+        <div class="categorias">
+            <a href="https://drive.google.com/drive/folders/ID_DE_CARPETA_DRIVE_1" target="_blank" rel="noopener" class="btn-categoria cat1"><span class="material-symbols-outlined icono">palette</span> DRIVE 1</a>
+            <a href="https://drive.google.com/drive/folders/ID_DE_CARPETA_DRIVE_2" target="_blank" rel="noopener" class="btn-categoria cat2"><span class="material-symbols-outlined icono">palette</span> DRIVE 2</a>
+            <a href="https://drive.google.com/drive/folders/ID_DE_CARPETA_DRIVE_3" target="_blank" rel="noopener" class="btn-categoria cat3"><span class="material-symbols-outlined icono">palette</span> DRIVE 3</a>
+            <a href="https://drive.google.com/drive/folders/ID_DE_CARPETA_DRIVE_4" target="_blank" rel="noopener" class="btn-categoria cat4"><span class="material-symbols-outlined icono">palette</span> DRIVE 4</a>
+            <a href="https://drive.google.com/drive/folders/ID_DE_CARPETA_DRIVE_5" target="_blank" rel="noopener" class="btn-categoria cat5"><span class="material-symbols-outlined icono">palette</span> DRIVE 5</a>
+            <a href="https://drive.google.com/drive/folders/ID_DE_CARPETA_DRIVE_6" target="_blank" rel="noopener" class="btn-categoria cat6"><span class="material-symbols-outlined icono">palette</span> DRIVE 6</a>
+            <a href="https://drive.google.com/drive/folders/ID_DE_CARPETA_DRIVE_7" target="_blank" rel="noopener" class="btn-categoria cat7"><span class="material-symbols-outlined icono">palette</span> DRIVE 7</a>
+            <a href="https://drive.google.com/drive/folders/ID_DE_CARPETA_DRIVE_8" target="_blank" rel="noopener" class="btn-categoria cat8"><span class="material-symbols-outlined icono">palette</span> DRIVE 8</a>
+            <a href="https://drive.google.com/drive/folders/ID_DE_CARPETA_DRIVE_9" target="_blank" rel="noopener" class="btn-categoria cat9"><span class="material-symbols-outlined icono">palette</span> DRIVE 9</a>
+            <a href="https://drive.google.com/drive/folders/ID_DE_CARPETA_DRIVE_10" target="_blank" rel="noopener" class="btn-categoria cat10"><span class="material-symbols-outlined icono">palette</span> DRIVE 10</a>
+            <!-- Repite el mismo patrón hasta DRIVE 50 -->
+            <a href="https://drive.google.com/drive/folders/ID_DE_CARPETA_DRIVE_50" target="_blank" rel="noopener" class="btn-categoria cat50"><span class="material-symbols-outlined icono">palette</span> DRIVE 50</a>
+        </div>
+    </div>
+</body>
+</html>
