@@ -54,7 +54,7 @@
             --placeholder-input: rgba(255,255,255,0.7);
         }
 
-        /* Resto de tus estilos originales (sin cambios) */
+        /* Resto de tus estilos originales */
         body.modo-clasico .filosofia  { background: #1e88e5; }
         body.modo-clasico .historia   { background: #e53935; }
         body.modo-clasico .ciencias   { background: #26c6da; }
@@ -153,7 +153,7 @@
             font-size: 1.25rem; font-weight: 800; border-radius: var(--radio);
         }
 
-        /* ==================== INPUTS DE LOGIN (CORREGIDO) ==================== */
+        /* ==================== INPUTS DE LOGIN ==================== */
         #inputUsuario, #inputContrasena {
             width: 100%;
             padding: 16px;
@@ -170,7 +170,7 @@
             color: var(--placeholder-input);
         }
 
-        /* Modos claros: fondo más opaco y texto negro */
+        /* Modos claros */
         .modo-clasico #inputUsuario,
         .modo-clasico #inputContrasena,
         .modo-light-blue #inputUsuario,
@@ -233,7 +233,7 @@
         }
         .icono { font-size: 2.65rem; }
 
-        /* ==================== PANEL DE CONFIGURACIÓN (sin cambios) ==================== */
+        /* ==================== PANEL DE CONFIGURACIÓN ==================== */
         .config-panel {
             position: fixed; top: 0; right: -420px;
             width: 380px; height: 100vh;
@@ -318,9 +318,6 @@
 </head>
 <body class="modo-clasico neon-fonts-on animations-on">
 
-    <!-- TODO EL HTML DEL BODY ES EXACTAMENTE EL MISMO QUE TE DI ANTES -->
-    <!-- (sección login con usuario y contraseña, mensajeEstado, buscador, categorías, panel de config) -->
-
     <div class="contenedor">
         <h1>ACADEMIA DIGITAL DE LIBROS</h1>
 
@@ -363,7 +360,6 @@
         </div>
 
         <div class="categorias">
-            <!-- Tus 9 categorías (exactamente iguales) -->
             <a href="#" class="btn-carpeta tecnologia" target="_blank">
                 <span class="material-symbols-outlined icono">code</span>
                 Programación y Desarrollo
@@ -403,9 +399,8 @@
         </div>
     </div>
 
-    <!-- PANEL DE CONFIGURACIÓN (igual que antes) -->
+    <!-- PANEL DE CONFIGURACIÓN -->
     <div class="config-panel" id="configPanel">
-        <!-- ... tu panel completo sin cambios ... -->
         <div class="config-header">
             <div class="config-title">Neon Profesional</div>
             <div class="close-config" id="closeConfig">✕</div>
@@ -459,7 +454,7 @@
     </div>
 
     <script>
-        // === TU CÓDIGO ORIGINAL DE CONFIG + LOGIN + BUSCADOR (sin cambios importantes) ===
+        // === CONFIGURACIÓN DE TEMAS ===
         const body = document.body;
         const configPanel = document.getElementById('configPanel');
         const openConfig = document.getElementById('openConfig');
@@ -514,28 +509,7 @@
             }
         });
 
-        window.addEventListener('load', () => {
-            const saved = localStorage.getItem('neonConfig');
-            if (saved) {
-                const c = JSON.parse(saved);
-                body.classList.remove(...neonClasses);
-                body.classList.add(c.theme || 'modo-clasico');
-                themeSelect.value = c.theme || 'modo-clasico';
-                neonColorInput.value = c.neonColor || '#0066cc';
-                intensitySlider.value = c.intensity || 0.65;
-                radiusSlider.value = c.radius || 14;
-                animToggle.checked = c.animations !== false;
-                fontNeonToggle.checked = c.fontNeon !== false;
-            }
-            applyChanges();
-            if (animToggle.checked) {
-                body.classList.remove('animations-on');
-                void body.offsetWidth;
-                body.classList.add('animations-on');
-            }
-        });
-
-        // ==================== LOGIN CON USUARIO Y CONTRASEÑA ====================
+        // ==================== LOGIN PERSISTENTE (MODIFICACIÓN PRINCIPAL) ====================
         const seccionLogin = document.getElementById('seccionLogin');
         const mensajeEstado = document.getElementById('mensajeEstado');
         const btnLogin = document.getElementById('btnLogin');
@@ -562,6 +536,21 @@
             setTimeout(() => mensajeEstado.style.display = "none", 6000);
         }
 
+        function actualizarEstadoSesion(logueado, nombre = "") {
+            if (logueado) {
+                seccionLogin.style.display = "none";
+                categorias.style.opacity = "1";
+                categorias.style.pointerEvents = "all";
+                buscador.style.display = "block";
+                if (nombre) mostrarMensaje(`¡Bienvenido ${nombre.toUpperCase()}! ✅<br>Acceso permanente activado.`, "#00ff9d");
+            } else {
+                seccionLogin.style.display = "block";
+                categorias.style.opacity = "0.4";
+                categorias.style.pointerEvents = "none";
+                buscador.style.display = "none";
+            }
+        }
+
         async function intentarLogin() {
             const usuario = document.getElementById('inputUsuario').value.trim();
             const contrasena = document.getElementById('inputContrasena').value.trim();
@@ -575,16 +564,46 @@
             const encontrado = lista.find(u => u.usuario === usuario && u.contrasena === contrasena);
 
             if (encontrado) {
-                seccionLogin.style.display = "none";
-                categorias.style.opacity = "1";
-                categorias.style.pointerEvents = "all";
-                buscador.style.display = "block";
-                mostrarMensaje(`¡Bienvenido ${usuario.toUpperCase()}! ✅<br>Acceso desbloqueado de por vida.`, "#00ff9d");
+                localStorage.setItem('usuarioLogueado', usuario);   // Guardar sesión
+                actualizarEstadoSesion(true, usuario);
             } else {
                 mostrarMensaje(`Usuario o contraseña incorrectos.<br>Si no tienes acceso, compra el curso completo.`, "red");
             }
         }
 
+        // Cargar todo al iniciar la página
+        window.addEventListener('load', async () => {
+            // Cargar configuración de temas
+            const saved = localStorage.getItem('neonConfig');
+            if (saved) {
+                const c = JSON.parse(saved);
+                body.classList.remove(...neonClasses);
+                body.classList.add(c.theme || 'modo-clasico');
+                themeSelect.value = c.theme || 'modo-clasico';
+                neonColorInput.value = c.neonColor || '#0066cc';
+                intensitySlider.value = c.intensity || 0.65;
+                radiusSlider.value = c.radius || 14;
+                animToggle.checked = c.animations !== false;
+                fontNeonToggle.checked = c.fontNeon !== false;
+            }
+            applyChanges();
+
+            if (animToggle.checked) {
+                body.classList.remove('animations-on');
+                void body.offsetWidth;
+                body.classList.add('animations-on');
+            }
+
+            // Verificar si ya hay sesión guardada
+            const usuarioGuardado = localStorage.getItem('usuarioLogueado');
+            if (usuarioGuardado) {
+                actualizarEstadoSesion(true, usuarioGuardado);
+            } else {
+                actualizarEstadoSesion(false);
+            }
+        });
+
+        // Eventos del login
         btnLogin.addEventListener('click', intentarLogin);
         document.getElementById('inputContrasena').addEventListener('keypress', (e) => {
             if (e.key === "Enter") intentarLogin();
