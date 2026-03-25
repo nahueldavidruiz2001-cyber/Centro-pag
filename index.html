@@ -415,4 +415,150 @@
                 <option value="modo-neon-black-green">Black Green</option>
                 <option value="modo-light-blue">Light Neon Blue</option>
                 <option value="modo-light-pink">Light Neon Pink</option>
-                <option va
+                <option value="modo-light-green">Light Neon Green</option>
+                <option value="modo-light-purple">Light Neon Purple</option>
+                <option value="modo-light-gold">Light Neon Gold</option>
+                <option value="modo-neon-rgb">Neon RGB (Arcoíris Total)</option>
+            </select>
+        </div>
+
+        <div class="config-section">
+            <h3>2. Color Principal Neon</h3>
+            <input type="color" id="neonColor" value="#0066cc">
+        </div>
+
+        <div class="config-section">
+            <h3>3. Ajustes</h3>
+            <label>Intensidad del Glow <span id="intensityValue">65%</span></label>
+            <input type="range" id="intensity" min="0.3" max="1.2" step="0.05" value="0.65">
+
+            <label>Radio de Bordes <span id="radiusValue">14</span></label>
+            <input type="range" id="borderRadius" min="6" max="28" step="1" value="14">
+        </div>
+
+        <div class="config-section">
+            <h3>4. Efectos Globales</h3>
+            <label><input type="checkbox" id="animToggle" checked> Activar pulso neon suave</label>
+            <label><input type="checkbox" id="fontNeonToggle" checked> Activar Neon en textos</label>
+        </div>
+
+        <button id="saveConfig">💾 Guardar Configuración</button>
+        <button id="resetConfig">🔄 Restaurar por Defecto</button>
+    </div>
+
+    <script>
+        // === JAVASCRIPT ORIGINAL (sin cambios) ===
+        const body = document.body;
+        const configPanel = document.getElementById('configPanel');
+        const openConfig = document.getElementById('openConfig');
+        const closeConfig = document.getElementById('closeConfig');
+        const themeSelect = document.getElementById('themeSelect');
+        const neonColorInput = document.getElementById('neonColor');
+        const intensitySlider = document.getElementById('intensity');
+        const radiusSlider = document.getElementById('borderRadius');
+        const intensityValue = document.getElementById('intensityValue');
+        const radiusValue = document.getElementById('radiusValue');
+        const animToggle = document.getElementById('animToggle');
+        const fontNeonToggle = document.getElementById('fontNeonToggle');
+
+        const neonClasses = ['modo-clasico','modo-neon-purple','modo-neon-cyber','modo-neon-green','modo-neon-pink','modo-neon-orange','modo-neon-red','modo-neon-gold','modo-neon-black-blue','modo-neon-black-red','modo-neon-black-green','modo-light-blue','modo-light-pink','modo-light-green','modo-light-purple','modo-light-gold','modo-neon-rgb'];
+
+        function applyChanges() {
+            document.documentElement.style.setProperty('--neon-primary', neonColorInput.value);
+            document.documentElement.style.setProperty('--neon-glow', neonColorInput.value);
+            document.documentElement.style.setProperty('--glow-intensity', intensitySlider.value);
+
+            intensityValue.textContent = Math.round(intensitySlider.value * 100) + "%";
+            radiusValue.textContent = radiusSlider.value;
+            document.documentElement.style.setProperty('--radio', radiusSlider.value + "px");
+        }
+
+        openConfig.addEventListener('click', () => configPanel.classList.add('open'));
+        closeConfig.addEventListener('click', () => configPanel.classList.remove('open'));
+
+        themeSelect.addEventListener('change', () => {
+            body.classList.remove(...neonClasses);
+            body.classList.add(themeSelect.value);
+            body.classList.remove('animations-on');
+            void body.offsetWidth;
+            if (animToggle.checked) body.classList.add('animations-on');
+        });
+
+        neonColorInput.addEventListener('input', applyChanges);
+        intensitySlider.addEventListener('input', applyChanges);
+        radiusSlider.addEventListener('input', applyChanges);
+        animToggle.addEventListener('change', () => body.classList.toggle('animations-on', animToggle.checked));
+        fontNeonToggle.addEventListener('change', () => body.classList.toggle('neon-fonts-on', fontNeonToggle.checked));
+
+        document.getElementById('saveConfig').addEventListener('click', () => {
+            const config = { theme: themeSelect.value, neonColor: neonColorInput.value, intensity: intensitySlider.value, radius: radiusSlider.value, animations: animToggle.checked, fontNeon: fontNeonToggle.checked };
+            localStorage.setItem('neonConfig', JSON.stringify(config));
+            alert("¡Configuración guardada correctamente! ✅");
+        });
+
+        document.getElementById('resetConfig').addEventListener('click', () => {
+            if (confirm("¿Restaurar todas las configuraciones por defecto?")) {
+                localStorage.removeItem('neonConfig');
+                location.reload();
+            }
+        });
+
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('neonConfig');
+            if (saved) {
+                const c = JSON.parse(saved);
+                body.classList.remove(...neonClasses);
+                body.classList.add(c.theme || 'modo-clasico');
+                themeSelect.value = c.theme || 'modo-clasico';
+                neonColorInput.value = c.neonColor || '#0066cc';
+                intensitySlider.value = c.intensity || 0.65;
+                radiusSlider.value = c.radius || 14;
+                animToggle.checked = c.animations !== false;
+                fontNeonToggle.checked = c.fontNeon !== false;
+            }
+            applyChanges();
+            if (animToggle.checked) {
+                body.classList.remove('animations-on');
+                void body.offsetWidth;
+                body.classList.add('animations-on');
+            }
+        });
+
+        // ==================== NUEVO: BUSCADOR DE CATEGORÍAS ====================
+        function normalizeText(text) {
+            return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
+        const buscadorInput = document.getElementById('buscadorCategorias');
+        const categoriaItems = document.querySelectorAll('.btn-carpeta');
+
+        buscadorInput.addEventListener('input', () => {
+            const termino = normalizeText(buscadorInput.value.trim());
+            
+            let resultadosVisibles = 0;
+
+            categoriaItems.forEach(item => {
+                const textoCategoria = normalizeText(item.textContent);
+                
+                if (termino === '' || textoCategoria.includes(termino)) {
+                    item.style.display = 'flex';
+                    resultadosVisibles++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Si no hay resultados y el usuario escribió algo, el grid se queda vacío (se ve limpio)
+            // Puedes agregar un mensaje si quieres, pero por ahora queda minimalista y funcional.
+        });
+
+        // Limpieza automática al borrar todo
+        buscadorInput.addEventListener('keyup', (e) => {
+            if (e.key === "Escape") {
+                buscadorInput.value = '';
+                categoriaItems.forEach(item => item.style.display = 'flex');
+            }
+        });
+    </script>
+</body>
+</html>
